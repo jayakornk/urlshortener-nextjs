@@ -1,3 +1,4 @@
+import isbot from 'isbot';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import Url, { IUrl } from '../../../models/Url';
@@ -10,8 +11,13 @@ const handler = async (
   const {
     method,
     query: { shortUrl },
+    headers,
   } = req;
-  console.log('request', req);
+  const userAgent = headers['user-agent'];
+
+  console.log('User-Agent:', userAgent);
+  console.log('isbot?:', isbot.find(userAgent));
+
   DatabaseService.connect();
   let url: IUrl | IUrl[];
 
@@ -22,8 +28,10 @@ const handler = async (
         if (url == null) {
           return (res.status(404) as unknown) as void;
         }
-        url.clicks++;
-        url.save();
+        if (!isbot(userAgent)) {
+          url.clicks++;
+          url.save();
+        }
         res.redirect(url.longUrl);
         break;
       default:
