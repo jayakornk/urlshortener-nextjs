@@ -5,14 +5,13 @@ import jwt from 'next-auth/jwt';
 import User, { IUser } from '../../models/User';
 import DatabaseService from '../../services/database';
 
-type Data = {
-  name: string;
-};
-
 const secret = process.env.JWT_SECRET;
 const signingKey = process.env.JWT_SIGNING_PRIVATE_KEY;
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   DatabaseService.connect();
   let user: IUser | IUser[];
   const token = await jwt.getToken({ req, secret, signingKey });

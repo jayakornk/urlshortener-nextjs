@@ -1,4 +1,4 @@
-import { Code, useToasts } from '@geist-ui/react';
+import { useToasts } from '@geist-ui/react';
 import { Toast } from '@geist-ui/react/dist/use-toasts/use-toast';
 import { useSession } from 'next-auth/client';
 import { ChangeEvent, FormEvent, useState } from 'react';
