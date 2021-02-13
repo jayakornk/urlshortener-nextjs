@@ -5,7 +5,7 @@ import {
   GoogleLoginButton,
 } from 'react-social-login-buttons';
 
-import { LINELoginButton } from './LINE';
+// import { LINELoginButton } from './LINE';
 
 interface LoginModalProps {
   open: boolean;
@@ -90,10 +90,10 @@ export const LoginModal = (props: LoginModalProps): JSX.Element => {
               <div className="flex flex-col mx-auto w-60">
                 <GithubLoginButton onClick={() => signIn('github')} />
                 <GoogleLoginButton onClick={() => signIn('google')} />
-                <LINELoginButton
+                {/* <LINELoginButton
                   iconSize="26px"
                   onClick={() => signIn('line')}
-                />
+                /> */}
                 <button
                   type="button"
                   className="px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"

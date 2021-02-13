@@ -12,10 +12,10 @@ const options: InitOptions = {
       clientId: process.env.NEXTAUTH_GITHUB_ID,
       clientSecret: process.env.NEXTAUTH_GITHUB_SECRET,
     }),
-    Providers.LINE({
-      clientId: process.env.NEXTAUTH_LINE_CLIENT_ID,
-      clientSecret: process.env.NEXTAUTH_LINE_CLIENT_SECRET,
-    }),
+    // Providers.LINE({
+    //   clientId: process.env.NEXTAUTH_LINE_CLIENT_ID,
+    //   clientSecret: process.env.NEXTAUTH_LINE_CLIENT_SECRET,
+    // }),
   ],
   database: process.env.NEXTAUTH_DATABASE_URL,
   secret: process.env.NEXTAUTH_SECRET,
