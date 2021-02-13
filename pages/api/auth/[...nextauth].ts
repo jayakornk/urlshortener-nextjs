@@ -28,7 +28,7 @@ const options: InitOptions = {
     secret: process.env.JWT_SECRET,
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
   },
-  debug: true,
+  debug: process.env.NODE_ENV === 'production' ? false : true,
 };
 
 const Auth = (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
