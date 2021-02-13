@@ -77,12 +77,12 @@ export const Form = (): JSX.Element => {
             id="url"
             className="block w-full px-4 py-3 pl-12 text-gray-900 placeholder-gray-400 bg-white border-0 rounded-md shadow-md appearance-none disabled:opacity-50 focus:outline-none focus:ring-0"
             placeholder={`${
-              !session && !loading
+              !session || !loading
                 ? 'Login to shorten the link 😜'
                 : 'URL to be shorten'
             }`}
             onChange={handleOnInputChange}
-            disabled={!session && !loading}
+            disabled={!session || !loading}
             value={url}
           />
         </div>
@@ -92,16 +92,16 @@ export const Form = (): JSX.Element => {
           id="url"
           className="block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 disabled:opacity-50"
           placeholder={`${
-            !session && !loading ? 'Login to shorten the link 😜' : 'URL to be shorten'
+            !session || !loading ? 'Login to shorten the link 😜' : 'URL to be shorten'
           }`}
           onChange={handleOnInputChange}
-          disabled={!session && !loading}
+          disabled={!session || !loading}
           value={url}
         /> */}
         <button
           className="flex items-center px-4 ml-2 text-white transition bg-indigo-500 rounded-md shadow-md select-none disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap hover:bg-indigo-600 focus:outline-none"
           type="submit"
-          disabled={!session && !loading}
+          disabled={!session || !loading}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
