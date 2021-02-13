@@ -10,7 +10,7 @@ import { Navbar, NavbarMenuProps } from './Navbar';
 type LayoutProps = WithChildren;
 
 const menus: NavbarMenuProps[] = [
-  // { label: 'Dashboard', href: '/' },
+  { label: 'Dashboard', href: '/' },
   // { label: 'Team', href: '/team' },
   // { label: 'Projects', href: '/projects' },
   // { label: 'Calendar', href: '/calendar' },
@@ -29,7 +29,7 @@ export const Layout = ({ children }: LayoutProps): JSX.Element => {
       <LoginModal open={openLoginModal} setOpen={setOpenLoginModal} />
       <Navbar menus={menus} openLogin={handleAvatarClick} />
       <div
-        className="relative py-12"
+        className="relative py-12 bg-blue-50"
         style={{ minHeight: 'calc(100vh - 8rem)' }}
       >
         <main>{children}</main>

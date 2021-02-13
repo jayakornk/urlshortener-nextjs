@@ -95,14 +95,18 @@ export const Navbar = (props: NavbarProps): JSX.Element => {
           </div>
           <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
             <div className="flex items-center flex-shrink-0">
-              <Image
-                src="/images/logo.svg"
-                width="166.4"
-                height="36"
-                alt="JayakornK"
-                priority
-                quality="100"
-              />
+              <Link href="/">
+                <a className="block h-9">
+                  <Image
+                    src="/images/logo.svg"
+                    width="166.4"
+                    height="36"
+                    alt="JayakornK"
+                    priority
+                    quality="100"
+                  />
+                </a>
+              </Link>
               {/* <img
                 className="block w-auto h-8 lg:hidden"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"

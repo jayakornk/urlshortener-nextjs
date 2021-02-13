@@ -41,7 +41,7 @@ const handler = async (
   })) as unknown) as TokenProps;
 
   if (token === null) {
-    return res.status(401).end('Please login!');
+    return res.status(401).end(JSON.stringify({ error: 'Please login!' }));
   }
 
   DatabaseService.connect();
@@ -71,7 +71,9 @@ const handler = async (
         break;
       default:
         res.setHeader('Allow', ['GET', 'POST']);
-        res.status(405).end(`Method ${method} Not Allowed`);
+        res
+          .status(405)
+          .end(JSON.stringify({ error: `Method ${method} Not Allowed` }));
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

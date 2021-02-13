@@ -6,15 +6,27 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Josefin Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['PT Sans', ...defaultTheme.fontFamily.sans],
+        mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
       },
       maxWidth: {
         30: '30ch',
       },
+      boxShadow: {
+        th: '0 1px 0 0 rgba(229, 231, 235, 1)',
+      },
+      colors: {
+        link: '#0070f3',
+        'link-hover': '#3291ff',
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ['disabled'],
+      cursor: ['disabled'],
+      pointerEvents: ['disabled'],
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 };

@@ -28,7 +28,9 @@ const handler = async (
         break;
       default:
         res.setHeader('Allow', ['GET']);
-        res.status(405).end(`Method ${method} Not Allowed`);
+        res
+          .status(405)
+          .end(JSON.stringify({ error: `Method ${method} Not Allowed` }));
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

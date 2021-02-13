@@ -2,17 +2,22 @@ import mongoose from 'mongoose';
 
 function connect(): void {
   if (mongoose.connection.readyState === 0) {
-    mongoose.connect(
-      `${
-        process.env.NEXTAUTH_DATABASE_URL || 'mongodb://localhost:27017'
-      }/urlshortener-next`,
-      {
+    console.log();
+    mongoose
+      .connect(`${process.env.NEXTAUTH_DATABASE_URL}`, {
         useCreateIndex: true,
         useNewUrlParser: true,
-        // useUnifiedTopology: true,
+        useUnifiedTopology: true,
         useFindAndModify: false,
-      }
-    );
+      })
+      .then(
+        () => {
+          console.log(
+            `Connected to database: ${process.env.NEXTAUTH_DATABASE_URL}`
+          );
+        },
+        (err) => console.log('Database Error:', err)
+      );
   }
 }
 

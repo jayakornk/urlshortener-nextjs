@@ -10,6 +10,15 @@ export interface IUrl extends Document {
   userId: IUser['_id'];
 }
 
+export interface IUrlResponse {
+  _id: string;
+  longUrl: string;
+  shortUrl: string;
+  clicks: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const UrlSchema = new mongoose.Schema(
   {
     longUrl: {
@@ -27,7 +36,8 @@ const UrlSchema = new mongoose.Schema(
       default: 0,
     },
     userId: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
   },
