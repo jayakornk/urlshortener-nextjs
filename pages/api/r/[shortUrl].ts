@@ -11,7 +11,7 @@ const handler = async (
     method,
     query: { shortUrl },
   } = req;
-
+  console.log('request', req);
   DatabaseService.connect();
   let url: IUrl | IUrl[];
 

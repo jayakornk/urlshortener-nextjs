@@ -1,8 +1,8 @@
-import { Link, useToasts } from '@geist-ui/react';
-import { Transition } from '@headlessui/react';
+import { Link, useClipboard, useToasts } from '@geist-ui/react';
+// import { Transition } from '@headlessui/react';
 import { useCallback } from 'react';
-import { useClipboard } from 'use-clipboard-copy';
 
+// import { useClipboard } from 'use-clipboard-copy';
 import { ICode } from './ICode';
 
 interface CopyProps {
@@ -14,13 +14,15 @@ const formatUrl = (shortUrl: string) =>
 
 const Copy = ({ text }: CopyProps): JSX.Element => {
   const [, setToast] = useToasts();
-  const clipboard = useClipboard({
-    copiedTimeout: 2000,
-  });
+  const { copy } = useClipboard();
+  // const clipboard = useClipboard({
+  //   copiedTimeout: 2000,
+  // });
 
   const handleClick = useCallback(() => {
     const url = formatUrl(text);
-    clipboard.copy(url);
+    // clipboard.copy(url);
+    copy(url);
     setToast({
       text: (
         <>
@@ -29,7 +31,8 @@ const Copy = ({ text }: CopyProps): JSX.Element => {
         </>
       ),
     });
-  }, [clipboard, text]);
+  }, [copy, text]);
+  // }, [clipboard, text]);
 
   return (
     <div className="relative flex items-end">
@@ -61,7 +64,7 @@ const Copy = ({ text }: CopyProps): JSX.Element => {
           />
         </svg>
       </button>
-      <Transition
+      {/* <Transition
         show={clipboard.copied}
         enter="transition-opacity duration-75"
         enterFrom="opacity-0"
@@ -73,7 +76,7 @@ const Copy = ({ text }: CopyProps): JSX.Element => {
         <div className="absolute ml-2 text-yellow-600 transform -translate-y-1/2 top-1/2">
           Copied!
         </div>
-      </Transition>
+      </Transition> */}
     </div>
   );
 };
