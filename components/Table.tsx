@@ -134,7 +134,7 @@ export const Table = ({
             min-height: ${urls && urls.length > 0
               ? `${40 + 61 * (urls.length - 0.5)}px`
               : 'auto'};
-            max-height: calc(100vh - 288px);
+            max-height: calc(100vh - 344px);
           }
         `}
       </style>
