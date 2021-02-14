@@ -18,13 +18,14 @@ export const Table = ({
     });
     mutate('/api/shortUrl');
   };
+
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div className="overflow-hidden overflow-y-auto border-b border-gray-200 shadow sm:rounded-lg urls-table">
+          <div className="overflow-hidden overflow-y-auto bg-white border-b border-gray-200 shadow sm:rounded-lg urls-table">
             <table className="relative min-w-full border-collapse divide-y divide-gray-200 table-fixed">
-              <thead className="border-b border-gray-200 bg-gray-50">
+              <thead>
                 <tr>
                   <th
                     scope="col"
@@ -130,7 +131,10 @@ export const Table = ({
       <style jsx>
         {`
           .urls-table {
-            max-height: calc(100vh - 266px);
+            min-height: ${urls && urls.length > 0
+              ? `${40 + 61 * (urls.length - 0.5)}px`
+              : 'auto'};
+            max-height: calc(100vh - 288px);
           }
         `}
       </style>

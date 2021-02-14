@@ -27,14 +27,11 @@ export const Layout = ({ children }: LayoutProps): JSX.Element => {
     <>
       <Meta />
       <LoginModal open={openLoginModal} setOpen={setOpenLoginModal} />
-      <Navbar menus={menus} openLogin={handleAvatarClick} />
-      <div
-        className="relative py-12 bg-blue-50"
-        style={{ minHeight: 'calc(100vh - 8rem)' }}
-      >
-        <main>{children}</main>
+      <div className="flex flex-col min-h-screen">
+        <Navbar menus={menus} openLogin={handleAvatarClick} />
+        <main className="relative flex-1 py-12 bg-blue-50">{children}</main>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
