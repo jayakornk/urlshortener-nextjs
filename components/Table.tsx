@@ -1,57 +1,9 @@
-import { Loading, Tag } from '@geist-ui/react';
-import { TagProps } from '@geist-ui/react/dist/tag/tag';
-import { DateTime } from 'luxon';
+import { Loading } from '@geist-ui/react';
 import { mutate } from 'swr';
 
 import Copy from './Copy';
+import { DateTag } from './DateTag';
 import { useShortUrl, UseShortUrlReturn } from './useShortUrl';
-
-export const DateEl = ({
-  date,
-  type,
-}: {
-  date: string;
-  type: TagProps['type'];
-}): JSX.Element => {
-  const parsed = DateTime.fromISO(date);
-  const tooltip = parsed.toFormat('FF');
-  const formatted = parsed.toFormat('yyyy-MM-dd');
-  return (
-    <>
-      <div className="relative inline-block text-center tooltip-wrapper">
-        <div className="absolute top-0 z-10 -my-2 transition-opacity transform -translate-x-1/2 -translate-y-full opacity-0 left-1/2 whitespace-nowrap">
-          <div className="px-4 py-1 text-xs text-white bg-black rounded bg-opacity-70 bottom-full">
-            {tooltip}
-            <svg
-              className="absolute left-0 w-full h-2 text-black opacity-70 top-full"
-              x="0px"
-              y="0px"
-              viewBox="0 0 255 255"
-              xmlSpace="preserve"
-            >
-              <polygon
-                className="fill-current"
-                points="0,0 127.5,127.5 255,0"
-              />
-            </svg>
-          </div>
-        </div>
-        <Tag type={type}>{formatted}</Tag>
-      </div>
-      <style jsx>
-        {`
-          .tooltip-wrapper > div {
-            pointer-events: none;
-          }
-          .tooltip-wrapper:hover > div {
-            opacity: 1;
-            pointer-events: auto;
-          }
-        `}
-      </style>
-    </>
-  );
-};
 
 export const Table = ({
   urls: serverUrls,
@@ -94,15 +46,15 @@ export const Table = ({
                   </th>
                   <th
                     scope="col"
-                    className="sticky top-0 z-10 hidden px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase shadow-th bg-gray-50 lg:table-cell"
-                  >
-                    Created At
-                  </th>
-                  <th
-                    scope="col"
                     className="sticky top-0 z-10 px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase shadow-th bg-gray-50"
                   >
                     Updated At
+                  </th>
+                  <th
+                    scope="col"
+                    className="sticky top-0 z-10 hidden px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase shadow-th bg-gray-50 lg:table-cell"
+                  >
+                    Created At
                   </th>
                   <th
                     scope="col"
@@ -131,11 +83,11 @@ export const Table = ({
                         <Copy text={url.shortUrl} />
                       </td>
                       <td className="px-6 py-4 text-center">{url.clicks}</td>
-                      <td className="hidden px-6 py-4 text-sm text-center text-gray-500 lg:table-cell">
-                        <DateEl date={url.createdAt} type="success" />
-                      </td>
                       <td className="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
-                        <DateEl date={url.updatedAt} type="warning" />
+                        <DateTag date={url.updatedAt} type="warning" />
+                      </td>
+                      <td className="hidden px-6 py-4 text-sm text-center text-gray-500 lg:table-cell">
+                        <DateTag date={url.createdAt} type="success" />
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-right">
                         <button

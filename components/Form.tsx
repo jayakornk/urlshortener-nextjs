@@ -1,15 +1,19 @@
-import { useToasts } from '@geist-ui/react';
+import { useClipboard, useToasts } from '@geist-ui/react';
 import { Toast } from '@geist-ui/react/dist/use-toasts/use-toast';
 import { useSession } from 'next-auth/client';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { mutate } from 'swr';
 
+import { isValidUrl } from '@/utils/isValidUrl';
+
+import { formatUrl } from './Copy';
 import { ICode } from './ICode';
 
 export const Form = (): JSX.Element => {
   const [url, setUrl] = useState('');
   const [, setToast] = useToasts();
   const [session, loading] = useSession();
+  const { copy } = useClipboard();
 
   const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
@@ -21,8 +25,16 @@ export const Form = (): JSX.Element => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!url) {
-      showToast('Please input valid url!', 'warning');
+    if (!isValidUrl(url, ['http', 'https'])) {
+      showToast(
+        <>
+          <span className="block mb-1">
+            Couldn&apos;t shorten the URL because of validation errors.
+          </span>
+          <ICode className="text-gray-500" text={url} />
+        </>,
+        'warning'
+      );
     } else {
       const res = await fetch('/api/shortUrl', {
         method: 'POST',
@@ -33,7 +45,9 @@ export const Form = (): JSX.Element => {
           longUrl: url,
         }),
       });
+      const json = await res.json();
       if (res.ok) {
+        copy(formatUrl(json.shortUrl));
         showToast(
           <>
             <ICode text={url} />
@@ -43,7 +57,6 @@ export const Form = (): JSX.Element => {
           </>
         );
       } else {
-        const json = await res.json();
         showToast(json.error, 'error');
       }
       mutate('/api/shortUrl');

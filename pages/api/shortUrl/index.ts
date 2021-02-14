@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'next-auth/jwt';
 
+import { isValidUrl } from '@/utils/isValidUrl';
+
 import Url, { IUrl } from '../../../models/Url';
 import DatabaseService from '../../../services/database';
 
@@ -15,19 +17,6 @@ interface TokenProps {
   iat: number;
   exp: number;
 }
-
-const validUrl = (s, protocols) => {
-  try {
-    const url = new URL(s);
-    return protocols
-      ? url.protocol
-        ? protocols.map((x) => `${x.toLowerCase()}:`).includes(url.protocol)
-        : false
-      : true;
-  } catch (err) {
-    return false;
-  }
-};
 
 const handler = async (
   req: NextApiRequest,
@@ -56,7 +45,7 @@ const handler = async (
       case 'POST':
         {
           const { longUrl } = req.body;
-          if (!validUrl(longUrl, ['http', 'https'])) {
+          if (!isValidUrl(longUrl, ['http', 'https'])) {
             return res.status(400).send({
               error: `Couldn't shorten the URL because of validation errors.\n${longUrl}`,
             });

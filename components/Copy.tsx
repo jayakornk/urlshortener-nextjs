@@ -9,7 +9,7 @@ interface CopyProps {
   text: string;
 }
 
-const formatUrl = (shortUrl: string) =>
+export const formatUrl = (shortUrl: string): string =>
   `${process.env.NEXT_PUBLIC_HOST}/r/${shortUrl}`;
 
 const Copy = ({ text }: CopyProps): JSX.Element => {
